@@ -2,23 +2,23 @@
 * Name:   huffumanCoding
 * Date:   2018.4.22
 * Author: Michael
-* Process£º×ÅÏÈÍ¨¹ý HuffmanTree() º¯Êý¹¹Ôì¹þ·òÂüÊ÷£¬È»ºóÔÚÖ÷º¯Êý main()ÖÐ
-*           ×Ôµ×ÏòÉÏ¿ªÊ¼(Ò²¾ÍÊÇ´ÓÊý×éÐòºÅÎªÁãµÄ½áµã¿ªÊ¼)ÏòÉÏ²ã²ãÅÐ¶Ï£¬ÈôÔÚ
-*           ¸¸½áµã×ó²à£¬ÔòÖÃÂëÎª 0,ÈôÔÚÓÒ²à,ÔòÖÃÂëÎª 1¡£×îºóÊä³öÉú³ÉµÄ±àÂë¡£
+* Processï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ HuffmanTree() ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ main()ï¿½ï¿½
+*           ï¿½Ôµï¿½ï¿½ï¿½ï¿½Ï¿ï¿½Ê¼(Ò²ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ä½ï¿½ã¿ªÊ¼)ï¿½ï¿½ï¿½Ï²ï¿½ï¿½ï¿½Ð¶Ï£ï¿½ï¿½ï¿½ï¿½ï¿½
+*           ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª 0,ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÉµÄ±ï¿½ï¿½ë¡£
 *------------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 #define MAXBIT      100
 #define MAXVALUE  10000
 #define MAXLEAF     30
 #define MAXNODE    MAXLEAF*2 -1
-#pragma warning(disable:4996) //ÆÁ±Î¶ÔÓÚscanfµÄ4996´íÎó
+#pragma warning(disable:4996) //ï¿½ï¿½ï¿½Î¶ï¿½ï¿½ï¿½scanfï¿½ï¿½4996ï¿½ï¿½ï¿½ï¿½
 typedef struct
 {
 	int bit[MAXBIT];
 	int start;
-} HCodeType;        /* ±àÂë½á¹¹Ìå */
+} HCodeType;        /* ï¿½ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½ */
 typedef struct
 {
 	int weight;
@@ -26,37 +26,37 @@ typedef struct
 	int lchild;
 	int rchild;
 	int value;
-} HNodeType;        /* ½áµã½á¹¹Ìå */
+} HNodeType;        /* ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½ */
 
-					/* ¹¹ÔìÒ»¿Å¹þ·òÂüÊ÷ */
+					/* ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 void HuffmanTree(HNodeType HuffNode[MAXNODE], int n)
 {
-	/* i¡¢j£º Ñ­»·±äÁ¿£¬m1¡¢m2£º¹¹Ôì¹þ·òÂüÊ÷²»Í¬¹ý³ÌÖÐÁ½¸ö×îÐ¡È¨Öµ½áµãµÄÈ¨Öµ£¬
-	x1¡¢x2£º¹¹Ôì¹þ·òÂüÊ÷²»Í¬¹ý³ÌÖÐÁ½¸ö×îÐ¡È¨Öµ½áµãÔÚÊý×éÖÐµÄÐòºÅ¡£*/
+	/* iï¿½ï¿½jï¿½ï¿½ Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½m1ï¿½ï¿½m2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡È¨Öµï¿½ï¿½ï¿½ï¿½È¨Öµï¿½ï¿½
+	x1ï¿½ï¿½x2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡È¨Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½Å¡ï¿½*/
 	int i, j, m1, m2, x1, x2;
-	/* ³õÊ¼»¯´æ·Å¹þ·òÂüÊ÷Êý×é HuffNode[] ÖÐµÄ½áµã */
+	/* ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Å¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ HuffNode[] ï¿½ÐµÄ½ï¿½ï¿½ */
 	for (i = 0; i<2 * n - 1; i++)
 	{
 		HuffNode[i].weight = 0;//È¨Öµ 
 		HuffNode[i].parent = -1;
 		HuffNode[i].lchild = -1;
 		HuffNode[i].rchild = -1;
-		HuffNode[i].value = i; //Êµ¼ÊÖµ£¬¿É¸ù¾ÝÇé¿öÌæ»»Îª×ÖÄ¸  
+		HuffNode[i].value = i; //Êµï¿½ï¿½Öµï¿½ï¿½ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ»»Îªï¿½ï¿½Ä¸  
 	} /* end for */
 
-	  /* ÊäÈë n ¸öÒ¶×Ó½áµãµÄÈ¨Öµ */
+	  /* ï¿½ï¿½ï¿½ï¿½ n ï¿½ï¿½Ò¶ï¿½Ó½ï¿½ï¿½ï¿½È¨Öµ */
 	for (i = 0; i<n; i++)
 	{
 		printf("Please input weight of leaf node %d: \n", i);
 		scanf("%d", &HuffNode[i].weight);
 	} /* end for */
 
-	  /* Ñ­»·¹¹Ôì Huffman Ê÷ */
+	  /* Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Huffman ï¿½ï¿½ */
 	for (i = 0; i<n - 1; i++)
 	{
-		m1 = m2 = MAXVALUE;     /* m1¡¢m2ÖÐ´æ·ÅÁ½¸öÎÞ¸¸½áµãÇÒ½áµãÈ¨Öµ×îÐ¡µÄÁ½¸ö½áµã */
+		m1 = m2 = MAXVALUE;     /* m1ï¿½ï¿½m2ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ï¿½È¨Öµï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		x1 = x2 = 0;
-		/* ÕÒ³öËùÓÐ½áµãÖÐÈ¨Öµ×îÐ¡¡¢ÎÞ¸¸½áµãµÄÁ½¸ö½áµã£¬²¢ºÏ²¢Ö®ÎªÒ»¿Å¶þ²æÊ÷ */
+		/* ï¿½Ò³ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½ï¿½È¨Öµï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½Ï²ï¿½Ö®ÎªÒ»ï¿½Å¶ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		for (j = 0; j<n + i; j++)
 		{
 			if (HuffNode[j].weight < m1 && HuffNode[j].parent == -1)
@@ -72,23 +72,23 @@ void HuffmanTree(HNodeType HuffNode[MAXNODE], int n)
 				x2 = j;
 			}
 		} /* end for */
-		  /* ÉèÖÃÕÒµ½µÄÁ½¸ö×Ó½áµã x1¡¢x2 µÄ¸¸½áµãÐÅÏ¢ */
+		  /* ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½ï¿½ï¿½ x1ï¿½ï¿½x2 ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ */
 		HuffNode[x1].parent = n + i;
 		HuffNode[x2].parent = n + i;
 		HuffNode[n + i].weight = HuffNode[x1].weight + HuffNode[x2].weight;
 		HuffNode[n + i].lchild = x1;
 		HuffNode[n + i].rchild = x2;
 
-		printf("x1.weight and x2.weight in round %d: %d, %d\n", i + 1, HuffNode[x1].weight, HuffNode[x2].weight);  /* ÓÃÓÚ²âÊÔ */
+		printf("x1.weight and x2.weight in round %d: %d, %d\n", i + 1, HuffNode[x1].weight, HuffNode[x2].weight);  /* ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½ */
 		printf("\n");
 	} /* end for */
 	  /*  for(i=0;i<n+2;i++)
 	  {
 	  printf(" Parents:%d,lchild:%d,rchild:%d,value:%d,weight:%d\n",HuffNode[i].parent,HuffNode[i].lchild,HuffNode[i].rchild,HuffNode[i].value,HuffNode[i].weight);
-	  }*///²âÊÔ 
+	  }*///ï¿½ï¿½ï¿½ï¿½ 
 } /* end HuffmanTree */
 
-  //½âÂë 
+  //ï¿½ï¿½ï¿½ï¿½ 
 void decodeing(char string[], HNodeType Buf[], int Num)
 {
 	int i, tmp = 0, code[1024];
@@ -131,8 +131,8 @@ void decodeing(char string[], HNodeType Buf[], int Num)
 int main(void)
 {
 
-	HNodeType HuffNode[MAXNODE];            /* ¶¨ÒåÒ»¸ö½áµã½á¹¹ÌåÊý×é */
-	HCodeType HuffCode[MAXLEAF], cd;       /* ¶¨ÒåÒ»¸ö±àÂë½á¹¹ÌåÊý×é£¬ Í¬Ê±¶¨ÒåÒ»¸öÁÙÊ±±äÁ¿À´´æ·ÅÇó½â±àÂëÊ±µÄÐÅÏ¢ */
+	HNodeType HuffNode[MAXNODE];            /* ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+	HCodeType HuffCode[MAXLEAF], cd;       /* ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ Í¬Ê±ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ï¢ */
 	int i, j, c, p, n;
 	char pp[100];
 	printf("Please input n:\n");
@@ -145,18 +145,18 @@ int main(void)
 		cd.start = n - 1;
 		c = i;
 		p = HuffNode[c].parent;
-		while (p != -1)   /* ¸¸½áµã´æÔÚ */
+		while (p != -1)   /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		{
 			if (HuffNode[p].lchild == c)
 				cd.bit[cd.start] = 0;
 			else
 				cd.bit[cd.start] = 1;
-			cd.start--;        /* Çó±àÂëµÄµÍÒ»Î» */
+			cd.start--;        /* ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ò»Î» */
 			c = p;
-			p = HuffNode[c].parent;    /* ÉèÖÃÏÂÒ»Ñ­»·Ìõ¼þ */
+			p = HuffNode[c].parent;    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		} /* end while */
 
-		  /* ±£´æÇó³öµÄÃ¿¸öÒ¶½áµãµÄ¹þ·òÂü±àÂëºÍ±àÂëµÄÆðÊ¼Î» */
+		  /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î» */
 		for (j = cd.start + 1; j<n; j++)
 		{
 			HuffCode[i].bit[j] = cd.bit[j];
@@ -164,7 +164,7 @@ int main(void)
 		HuffCode[i].start = cd.start;
 	} /* end for */
 
-	  /* Êä³öÒÑ±£´æºÃµÄËùÓÐ´æÔÚ±àÂëµÄ¹þ·òÂü±àÂë */
+	  /* ï¿½ï¿½ï¿½ï¿½Ñ±ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½Ú±ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	for (i = 0; i<n; i++)
 	{
 		printf("%d 's Huffman code is: ", i);
@@ -185,7 +185,7 @@ int main(void)
 	printf("\n");
 	}*/
 	printf("Decoding?Please Enter code:\n");
-	scanf("%s", &pp);
+	scanf("%s", pp);
 	decodeing(pp, HuffNode, n);
 	system("pause");
 	return 0;
